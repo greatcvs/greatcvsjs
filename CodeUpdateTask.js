@@ -4,15 +4,23 @@ import plugin from '../../lib/plugins/plugin.js'
 import { exec } from 'child_process'
 import path from 'node:path'
 import moment from 'moment'
+
+/**
+ * author : story-x
+ * profile : https://github.com/story-x
+ * repository-url : https://gitee.com/greatcvs/greatcvsjs
+ * version : 1.0.0
+ **/
+
 // 填机器人QQ号
 let BotUin = ''
 // 要推送的群号
 let GROUP_LIST = []
 // 要推送的人
 let USER_LIST = []
-// 设置 GitHub令牌
+// 设置 GitHub令牌 （https://www.baidu.com/s?wd=GitHub令牌）
 const GITHUB_TOKEN = ''
-// 设置 Gitee令牌
+// 设置 Gitee令牌（https://www.baidu.com/s?wd=Gitee令牌）
 const GITEE_TOKEN = ''
 // 自定义仓库地址
 const CUSTOM_REPOSITORY = [
@@ -22,6 +30,7 @@ const CUSTOM_REPOSITORY = [
 const prefix = 'bubble:codeUpdateTask:'
 let REPOSITORY_LIST = []
 init()
+
 export class CodeUpdateTask extends plugin {
   constructor () {
     super({
@@ -85,7 +94,9 @@ export class CodeUpdateTask extends plugin {
           // 替换REPOSITORY_LIST为gitee
           item.source = 'Gitee'
           REPOSITORY_LIST = REPOSITORY_LIST.map(i => {
-            if (i.owner === item.owner && i.repo === item.repo) { i.source = 'Gitee' }
+            if (i.owner === item.owner && i.repo === item.repo) {
+              i.source = 'Gitee'
+            }
             return i
           })
         } else {
@@ -227,6 +238,7 @@ function init () {
       })
     }
   }
+
   // 遍历目录
   function traverseDirectory (currentPath) {
     const files = fs.readdirSync(currentPath)
@@ -256,6 +268,7 @@ function init () {
       }
     })
   }
+
   // 处理自定义地址
   if (CUSTOM_REPOSITORY.length > 0) {
     CUSTOM_REPOSITORY.forEach(item => {
