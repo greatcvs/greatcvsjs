@@ -9,7 +9,7 @@ import moment from 'moment'
  * author : story-x
  * profile : https://github.com/story-x
  * repository-url : https://gitee.com/greatcvs/greatcvsjs
- * version : 1.0.0
+ * version : 1.0.1
  **/
 
 // 填机器人QQ号
@@ -78,7 +78,7 @@ export class CodeUpdateTask extends plugin {
       logger.info(`仓库地址：${item.owner}/${item.repo}`)
       index++
       if (index > 1) {
-        await this.sleep(1000)
+        await this.sleep(3000)
       }
       let repositoryData
       if (item.source === 'Github') {
@@ -116,7 +116,7 @@ export class CodeUpdateTask extends plugin {
         continue
       }
       repositoryData.source = item.source
-      const redisKey = `${prefix}${item.owner}/${item.repo}`
+      const redisKey = `${prefix}${item.source}:${item.owner}/${item.repo}`
       let redisSha = await redis.get(redisKey)
       if (redisSha) {
         if (String(redisSha) === String(repositoryData.sha)) {
